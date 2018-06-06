@@ -11,11 +11,12 @@
 
     <v-layout row wrap class="mt-2">
         <v-flex>
-            <v-carousel>
+            <v-carousel style="cursor: pointer">
                 <v-carousel-item 
                 v-for="meetup in meetups"
                 :src="meetup.imageUrl"
-                :key="meetup.id">
+                :key="meetup.id"
+                @click="onLoadMeetup(meetup.id)">
                     <div class="title">
                         {{ meetup.title }}
                     </div>
@@ -35,15 +36,15 @@
 
 <script>
     export default {
-        data () {
-            return {
-                meetups: [
-                    { imageUrl: 'https://i2.wp.com/www.worldwanderista.com/wp-content/uploads/2018/01/One-day-in-Ljubljana-Slovenia.jpg?resize=715%2C400&ssl=1',
-                     id: 'blablabla', title: 'Meetup in Ljubljana'},
-                    { imageUrl: 'https://media-cdn.tripadvisor.com/media/photo-s/12/f8/68/3d/big-bus-paris-hop-on.jpg',
-                     id: 'blablabla2', title: 'Meetup in Paris'},
-                ]
-            }
+        computed: {
+          meetups () {
+            return this.$store.getters.featuredMeetups
+          }
+        },
+        methods: {
+          onLoadMeetup(id) {
+            this.$router.push('/meetups/' + id)
+          }
         }
     }
 </script>
