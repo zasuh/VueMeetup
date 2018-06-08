@@ -13,7 +13,8 @@ export const store = new Vuex.Store({
       { imageUrl: 'https://media-cdn.tripadvisor.com/media/photo-s/12/f8/68/3d/big-bus-paris-hop-on.jpg',
         id: 'blablabla2',
         title: 'Meetup in Paris',
-        date: '2018-07-18'}
+        date: '2018-07-18',
+        location: 'Paris'},
     ],
     user: {
       id: 'haihwbfiawu',

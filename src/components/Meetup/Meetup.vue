@@ -13,10 +13,10 @@
           </v-card-media>
           <v-card-text>
             <div class="info--text">
-              {{ meetup.date }}
+              {{ meetup.date }} - {{ meetup.location }}
             </div>
             <div>
-              Lorem ipsum dolor si amet.
+              {{ meetup.description }}
             </div>
           </v-card-text>
 
