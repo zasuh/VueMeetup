@@ -9,12 +9,12 @@ export const store = new Vuex.Store({
       { imageUrl: 'https://i2.wp.com/www.worldwanderista.com/wp-content/uploads/2018/01/One-day-in-Ljubljana-Slovenia.jpg?resize=715%2C400&ssl=1',
         id: 'blablabla',
         title: 'Meetup in Ljubljana',
-        date: '2018-07-17'},
+        date: new Date()},
       { imageUrl: 'https://media-cdn.tripadvisor.com/media/photo-s/12/f8/68/3d/big-bus-paris-hop-on.jpg',
         id: 'blablabla2',
         title: 'Meetup in Paris',
-        date: '2018-07-18',
-        location: 'Paris'},
+        date: new Date(),
+        location: 'Paris'}
     ],
     user: {
       id: 'haihwbfiawu',
