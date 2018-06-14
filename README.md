@@ -2,6 +2,7 @@
 
 > Vue app built with vue vuetify and firebase.
 > Main purpose is to learn Vue, Vuex, Vuetify and Firebase auth for the first time.
+> There may be many bugs.. sorry...
 
 ## Build Setup
 
