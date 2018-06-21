@@ -29,5 +29,6 @@ new Vue({
       projectId: 'vue-meetup-b80f5',
       storageBucket: ''
     })
+    this.$store.dispatch('loadMeetups')
   }
 })
