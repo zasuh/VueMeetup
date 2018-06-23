@@ -22,11 +22,25 @@ export const store = new Vuex.Store({
     error: null
   },
   mutations: {
-    setLoadedMeetups(state, payload) {
+    setLoadedMeetups (state, payload) {
       state.loadedMeetups = payload
     },
     createMeetup (state, payload) {
       state.loadedMeetups.push(payload)
+    },
+    updateMeetup (state, payload){
+      const meetup = state.loadedMeetups.find(meetup => {
+        return meetup.id === payload.id
+      })
+      if (payload.title) {
+        meetup.title = payload.title
+      }
+      if (payload.description) {
+        meetup.description = payload.description
+      }
+      if (payload.date) {
+        meetup.date = payload.date
+      }
     },
     setUser (state, payload) {
       state.user = payload
@@ -48,13 +62,14 @@ export const store = new Vuex.Store({
         .then((data) => {
           const meetups = []
           const obj = data.val()
-          for(let key in obj) {
+          for (let key in obj) {
             meetups.push({
               id: key,
               title: obj[key].title,
               description: obj[key].description,
               imageUrl: obj[key].imageUrl,
               date: obj[key].date,
+              location: obj[key].location,
               creatorId: obj[key].creatorId
             })
           }
@@ -107,6 +122,28 @@ export const store = new Vuex.Store({
           console.log(error)
         })
     },
+    updateMeetupData ({commit}, payload) {
+      commit('setLoading', true)
+      const updateObj = {}
+      if (payload.title) {
+        updateObj.title = payload.title
+      }
+      if (payload.description) {
+        updateObj.description = payload.description
+      }
+      if (payload.date) {
+        updateObj.date = payload.date
+      }
+      firebase.database().ref('meetups').child(payload.id).update(updateObj)
+      .then(() => {
+        commit('setLoading', false)
+        commit('updateMeetup', payload)
+      })
+      .catch(error => {
+        console.log(error)
+        commit('setLoading', false)
+      })
+    },
     signUserUp ({commit}, payload) {
       commit('setLoading', true)
       commit('clearError')
@@ -129,7 +166,7 @@ export const store = new Vuex.Store({
         }
       )
     },
-    autoSignIn ({commit}, payload){
+    autoSignIn ({commit}, payload) {
       commit('setUser', {id: payload.uid, registeredMeetups: []})
     },
     logout ({commit}) {
@@ -163,7 +200,7 @@ export const store = new Vuex.Store({
   },
   getters: {
     loadedMeetups (state) {
-      return state.loadedMeetups.sort((meetupA, meetupB) =>{
+      return state.loadedMeetups.sort((meetupA, meetupB) => {
         return meetupA.date > meetupB.date
       })
     },
